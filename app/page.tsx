@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Home = () => {
   const posts = [
@@ -20,8 +21,7 @@ const Home = () => {
               key={post.id} 
               className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
             >
-              <a 
-                href={`/posts/${post.id}`}
+              <Link  href={`/posts/${post.id}`}
                 className="block p-6"
               >
                 <h2 className="text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
@@ -41,7 +41,7 @@ const Home = () => {
                     <path d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
-              </a>
+              </Link>
             </div>
           ))}
         </div>
