@@ -1,7 +1,6 @@
 // app/posts/[id]/page.tsx
 'use client';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const Post = ({ id = '1' }) => {
   const [comments, setComments] = useState<string[]>([]);
