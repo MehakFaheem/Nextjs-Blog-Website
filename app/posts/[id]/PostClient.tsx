@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 interface PostClientProps {
@@ -9,13 +9,13 @@ interface PostClientProps {
   };
 }
 
-const PostClient = ({ params }: PostClientProps) => {
+const PostClient: React.FC<PostClientProps> = ({ params }) => {
   const { id } = params;
 
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState<string>('');
 
-  const handleCommentSubmit = (e: React.FormEvent) => {
+  const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newComment.trim()) {
       setComments([...comments, newComment]);
