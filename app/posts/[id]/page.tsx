@@ -1,43 +1,39 @@
-// app/posts/[id]/page.tsx
-import PostClient from './PostClient';
+import type { Metadata, ResolvingMetadata } from 'next'
+import PostClient from './PostClient'
 
 interface BlogPost {
-  id: string;
-  title: string;
-  content: string;
-  body: string;
+  id: string
+  title: string
+  body: string
 }
 
-interface PageProps {
-  params: {
-    id: string;
-  };
+interface Props {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-const fetchBlogPost = async (id: string): Promise<BlogPost | null> => {
-  try {
-    const response = await fetch(`https://dummyjson.com/posts/${id}`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch blog post');
-    }
-    return response.json();
-  } catch (error) {
-    console.error(error);
-    return null;
+async function getPost(id: string): Promise<BlogPost | null> {
+  const res = await fetch(`https://dummyjson.com/posts/${id}`)
+  if (!res.ok) return null
+  return res.json()
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const post = await getPost(params.id)
+  return {
+    title: post?.title || 'Post not found',
   }
-};
+}
 
-const PostPage = async ({ params }: PageProps) => {
-  const { id } = params;
+export default async function PostPage({ params }: Props) {
+  const post = await getPost(params.id)
 
-  // Fetch the blog post data
-  const blogPost = await fetchBlogPost(id);
-
-  if (!blogPost) {
-    return <div>Blog post not found.</div>;
+  if (!post) {
+    return <div className="text-white p-4">Post not found</div>
   }
 
-  return <PostClient params={params} blogPost={blogPost} />;
-};
-
-export default PostPage;
+  return <PostClient params={params} blogPost={post} />
+}
