@@ -1,17 +1,43 @@
+// app/posts/[id]/page.tsx
 import PostClient from './PostClient';
 
-// Define the expected type for props
-interface PageProps {
-  params: Promise<{
-    id: string;
-  }>;
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  body: string;
 }
 
-const PostPage = async ({ params }: PageProps) => {
-  // Await the params to ensure it's resolved
-  const resolvedParams = await params;
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
 
-  return <PostClient params={resolvedParams} />;
+const fetchBlogPost = async (id: string): Promise<BlogPost | null> => {
+  try {
+    const response = await fetch(`https://dummyjson.com/posts/${id}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch blog post');
+    }
+    return response.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const PostPage = async ({ params }: PageProps) => {
+  const { id } = await params;
+
+  // Fetch the blog post data
+  const blogPost = await fetchBlogPost(id);
+
+  if (!blogPost) {
+    return <div>Blog post not found.</div>;
+  }
+
+  return <PostClient params={params} blogPost={blogPost} />;
 };
 
 export default PostPage;
