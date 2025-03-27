@@ -7,8 +7,9 @@ interface BlogPost {
   body: string
 }
 
-interface Props {
+interface PageProps {
   params: { id: string }
+  searchParams?: { [key: string]: string | string[] | undefined }
 }
 
 async function getPost(id: string): Promise<BlogPost | null> {
@@ -17,19 +18,19 @@ async function getPost(id: string): Promise<BlogPost | null> {
   return res.json()
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = await getPost(params.id)
   return {
     title: post?.title || 'Post not found',
   }
 }
 
-export default async function PostPage({ params }: Props) {
+export default async function PostPage({ params }: PageProps) {
   const post = await getPost(params.id)
 
   if (!post) {
     return <div className="text-white p-4">Post not found</div>
   }
 
-  return <PostClient blogPost={post} />
+  return <PostClient params={params} blogPost={post} />
 }

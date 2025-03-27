@@ -11,10 +11,13 @@ interface BlogPost {
 }
 
 interface PostClientProps {
+  params: {
+    id: string;
+  };
   blogPost: BlogPost;
 }
 
-const PostClient: React.FC<PostClientProps> = ({ blogPost }) => {
+const PostClient: React.FC<PostClientProps> = ({ params, blogPost }) => {
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState<string>('');
 
