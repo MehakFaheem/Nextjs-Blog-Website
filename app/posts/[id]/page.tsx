@@ -9,7 +9,6 @@ interface BlogPost {
 
 interface Props {
   params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 async function getPost(id: string): Promise<BlogPost | null> {
@@ -32,5 +31,5 @@ export default async function PostPage({ params }: Props) {
     return <div className="text-white p-4">Post not found</div>
   }
 
-  return <PostClient params={params} blogPost={post} />
+  return <PostClient blogPost={post} />
 }

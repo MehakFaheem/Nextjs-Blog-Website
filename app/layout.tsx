@@ -1,9 +1,20 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-
-const GeistSans = Inter({ subsets: ["latin"] });
-const GeistMono = Inter({ subsets: ["latin"] });
+import { Press_Start_2P } from "next/font/google";
 import "./globals.css";
+
+// Configure Inter font
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: '--font-inter'
+});
+
+// Configure Press Start 2P font
+const pressStart2P = Press_Start_2P({ 
+  weight: "400", 
+  subsets: ["latin"],
+  variable: '--font-press-start-2p'
+});
 
 export const metadata: Metadata = {
   title: "DevBlog | Tech Insights & Tutorials",
@@ -16,22 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.className} ${GeistMono.className}`}>
-      <head>
-        {/* Preconnect to Google Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* Load Press Start 2P font */}
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" 
-          rel="stylesheet"
-        />
-        
-        {/* Favicon (optional) */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      </head>
-      
+    <html 
+      lang="en" 
+      className={`${inter.variable} ${pressStart2P.variable}`}
+    >
       <body className="antialiased bg-black text-white">
         {children}
       </body>
