@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata } from 'next'
 import PostClient from './PostClient'
 
 interface BlogPost {
@@ -18,10 +18,7 @@ async function getPost(id: string): Promise<BlogPost | null> {
   return res.json()
 }
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPost(params.id)
   return {
     title: post?.title || 'Post not found',

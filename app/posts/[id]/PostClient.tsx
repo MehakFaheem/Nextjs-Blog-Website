@@ -1,4 +1,3 @@
-// app/posts/[id]/PostClient.tsx
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -19,7 +18,6 @@ interface PostClientProps {
 }
 
 const PostClient: React.FC<PostClientProps> = ({ params, blogPost }) => {
-  const { id : _id} = params;
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState<string>('');
 
