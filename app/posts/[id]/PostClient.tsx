@@ -19,7 +19,7 @@ interface PostClientProps {
 }
 
 const PostClient: React.FC<PostClientProps> = ({ params, blogPost }) => {
-  const { id } = params;
+  const { id : _id} = params;
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState<string>('');
 

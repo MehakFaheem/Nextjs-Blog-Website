@@ -5,6 +5,7 @@ import "aos/dist/aos.css";
 import Link from 'next/link';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Image from 'next/image';
 import { ReactTyped } from "react-typed";
 import techAnimation from "../public/imgs/laptop.json"; 
 import CountUp from 'react-countup';
@@ -85,9 +86,11 @@ const Home = () => {
         {/* Image with Fading Effect on the Right */}
           <div className="w-full md:w-1/2 relative" data-aos="fade-up-right">
             <div className="relative w-auto md:ml-24">
-              <img 
+              <Image
                 src="/imgs/Featuredblogs.jpeg" 
                 alt="Featured Post" 
+                width={1200}  // Add required width
+                height={800}  // Add required height
                 className="w-full h-auto rounded-lg"
               />
               {/* Right Gradient */}
