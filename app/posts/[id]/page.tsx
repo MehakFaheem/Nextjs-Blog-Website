@@ -28,7 +28,7 @@ const fetchBlogPost = async (id: string): Promise<BlogPost | null> => {
 };
 
 const PostPage = async ({ params }: PageProps) => {
-  const { id } = await params;
+  const { id } = params;
 
   // Fetch the blog post data
   const blogPost = await fetchBlogPost(id);
