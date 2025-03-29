@@ -32,5 +32,5 @@ export default async function PostPage({ params }: PageProps) {
     return <div className="text-white p-4">Post not found</div>
   }
 
-  return <PostClient params={params} blogPost={post} />
+  return <PostClient blogPost={post} />
 }
