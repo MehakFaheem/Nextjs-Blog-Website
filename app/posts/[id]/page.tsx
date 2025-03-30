@@ -7,10 +7,9 @@ interface BlogPost {
   body: string
 }
 
-// Fix the PageProps interface to match Next.js 15 expectations
 interface PageProps {
   params: { id: string }
-  searchParams?: { [key: string]: string | string[] | undefined }
+  searchParams?: Record<string, string | string[]>
 }
 
 async function getPost(id: string): Promise<BlogPost | null> {
@@ -26,7 +25,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-// Make sure to define this as an async function with the correct type signature
 export default async function PostPage({ params }: PageProps) {
   const post = await getPost(params.id)
 
@@ -34,5 +32,5 @@ export default async function PostPage({ params }: PageProps) {
     return <div className="text-white p-4">Post not found</div>
   }
 
-  return <PostClient blogPost={post} />
+  return <PostClient post={post} />
 }
